@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:music_player/user_preferences.dart';
+
+import 'model/user.dart';
 
 class MyHeaderDrawer extends StatefulWidget {
   @override
@@ -6,9 +11,11 @@ class MyHeaderDrawer extends StatefulWidget {
 }
 
 class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
+  final user = UserPreferences.getUser();
   @override
   Widget build(BuildContext context) {
     return Container(
+
       color: Colors.indigoAccent,
       width: double.infinity,
       height: 200,
@@ -22,23 +29,27 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage('assets/images/profile.jpg'),
+                  image: FileImage(File(user.imagePath))
               ),
             ),
           ),
-          Text(
-            "User",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          Text(
-            "user@email.com",
-            style: TextStyle(
-              color: Colors.grey[200],
-              fontSize: 14,
-            ),
-          ),
+          buildName(user)
+
         ],
       ),
     );
   }
+  Widget buildName(User user) => Column(
+    children: [
+      Text(
+        user.name,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white),
+      ),
+      const SizedBox(height: 4),
+      Text(
+        user.email,
+        style: TextStyle(color: Colors.white),
+      )
+    ],
+  );
 }

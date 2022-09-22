@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:music_player/profile.dart';
 import 'package:music_player/settings.dart';
-
-import 'edit-profile.dart';
 import 'musicList.dart';
 import 'my_drawer_header.dart';
 
@@ -20,21 +18,12 @@ class _HomeState extends State<Home> {
 
   final List<Widget> _pages = [
     musicPage(),
-    profilePage(),
-    editProfile(),
+    musicPage(),
+    ProfilePage(),
     settingsPage()
   ];
   @override
   Widget build(BuildContext context) {
-    if (currentPage == DrawerSections.musicList) {
-      _pages[0] = musicPage();
-    } else if (currentPage == DrawerSections.profile) {
-      _pages[1] = profilePage();
-    } else if (currentPage == DrawerSections.editProfile) {
-      _pages[2] = editProfile();
-    } else if (currentPage == DrawerSections.settings) {
-      _pages[3] = settingsPage();
-    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigoAccent,
@@ -96,7 +85,7 @@ class _HomeState extends State<Home> {
           menuItem(1, "Music List", Icons.dashboard_outlined,
               _pages[0] == DrawerSections.musicList ? true : false),
           menuItem(2, "Profile", Icons.people_alt_outlined,
-              _pages[1] == DrawerSections.profile ? true : false),
+              _pages[2] == DrawerSections.profile ? true : false),
           menuItem(3, "Edit Profile", Icons.event,
               _pages[2] == DrawerSections.editProfile ? true : false),
           menuItem(4, "Settings", Icons.notes,
@@ -116,7 +105,7 @@ class _HomeState extends State<Home> {
             if (id == 1) {
               _selectedIndex = 0;
             } else if (id == 2) {
-              _selectedIndex = 1;
+              _selectedIndex = 2;
             } else if (id == 3) {
               _selectedIndex = 2;
             } else if (id == 4) {
