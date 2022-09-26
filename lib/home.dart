@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:music_player/playlistPage.dart';
 import 'package:music_player/profile.dart';
 import 'package:music_player/settings.dart';
 import 'musicList.dart';
@@ -18,7 +19,7 @@ class _HomeState extends State<Home> {
 
   final List<Widget> _pages = [
     musicPage(),
-    musicPage(),
+    PlaylistScreen(),
     ProfilePage(),
     settingsPage()
   ];
@@ -26,8 +27,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigoAccent,
-        title: Text("Gaan Shuno"),
+        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.green),
+        elevation: 0,
       ),
       body: _pages[_selectedIndex],
       drawer: Drawer(
@@ -43,11 +45,11 @@ class _HomeState extends State<Home> {
         ),
       ),
       bottomNavigationBar: Container(
-        color: Colors.indigoAccent,
+        color: Colors.green,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical:20),
           child: GNav(
-            backgroundColor: Colors.indigoAccent,
+            backgroundColor: Colors.green,
             color: Colors.white,
             activeColor: Colors.black,
             tabBackgroundColor: Colors.white,
@@ -84,10 +86,10 @@ class _HomeState extends State<Home> {
         children: [
           menuItem(1, "Music List", Icons.dashboard_outlined,
               _pages[0] == DrawerSections.musicList ? true : false),
-          menuItem(2, "Profile", Icons.people_alt_outlined,
+          menuItem(2, "Playlist", Icons.people_alt_outlined,
+              _pages[1] == DrawerSections.playlist ? true : false),
+          menuItem(3, "Profile", Icons.event,
               _pages[2] == DrawerSections.profile ? true : false),
-          menuItem(3, "Edit Profile", Icons.event,
-              _pages[2] == DrawerSections.editProfile ? true : false),
           menuItem(4, "Settings", Icons.notes,
               _pages[3] == DrawerSections.settings ? true : false),
         ],
@@ -105,7 +107,7 @@ class _HomeState extends State<Home> {
             if (id == 1) {
               _selectedIndex = 0;
             } else if (id == 2) {
-              _selectedIndex = 2;
+              _selectedIndex = 1;
             } else if (id == 3) {
               _selectedIndex = 2;
             } else if (id == 4) {
@@ -145,7 +147,7 @@ class _HomeState extends State<Home> {
 enum DrawerSections {
   musicList,
   profile,
-  editProfile,
+  playlist,
   settings,
 }
 

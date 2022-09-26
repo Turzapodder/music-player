@@ -43,6 +43,10 @@ dependencies:
   animated_theme_switcher: ^2.0.1-nullsafety.0
   image_picker: ^0.7.4
   path_provider: ^2.0.1
+  get: ^4.6.5
+  rxdart: ^0.27.5
+  just_audio: ^0.9.28
+  on_audio_query: ^2.6.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +74,7 @@ flutter:
   assets:
      - assets/logo.json
      - assets/images/
+     - assets/music/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
