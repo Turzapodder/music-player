@@ -2,15 +2,63 @@
 
 A new Flutter project.
 
-## Getting Started
+# Gaan Shuno A music Player
+This project is a Basically a music Player built with flutter.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+## Features
+
+- Beautiful UI Designed
+- Fetch Local Audio from the device storage
+- Muic List, Playlist, Song Carousel, and Music Player Interface
+- It can play music in background
+- We've used shared preferences to store user information and display it in multiple pages.
+
+
+## Plugin Used
+1. shared_preferences: ^2.0.5
+2. google_nav_bar: ^5.0.6
+3. animated_theme_switcher: ^2.0.1-nullsafety.0
+4. image_picker: ^0.7.4
+5. path_provider: ^2.0.1
+6. get: ^4.6.5
+7. rxdart: ^0.27.5
+8. just_audio: ^0.9.28
+9. on_audio_query: ^2.6.0
+10. provider: ^6.0.3
+11. just_audio_background: ^0.0.1-beta.7
+
+
+
+## Run Locally
+
+1. Clone the project
+```bash
+  git clone https://github.com/Turzapodder/music-player.git
+```
+2. Go to the project directory
+```bash
+  cd music-player
+```
+3. Run Pub Get on
+```bash
+  pubspec.yml
+```
+4. Install dependencies
+
+5. Finally run the project
+```bash
+  Select an emulator and run 'Main.dart' file
+```
+Now Enjoy its features !
+
+
+## A video explanation of this app
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tX9RE6yqe5A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
