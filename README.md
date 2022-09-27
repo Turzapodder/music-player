@@ -58,7 +58,7 @@ Now Enjoy its features !
 
 
 ## A video explanation of this app
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tX9RE6yqe5A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/tX9RE6yqe5A/0.jpg)](https://www.youtube.com/watch?v=tX9RE6yqe5A)
 
 
 
