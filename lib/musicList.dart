@@ -1,17 +1,25 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:music_player/widget/playlist_card.dart';
 import 'package:music_player/widget/section_header.dart';
 import 'package:music_player/widget/song_card.dart';
-
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
+import 'NowPlaying.dart';
 import 'model/playlist_model.dart';
+import 'model/songModelProvider.dart';
 import 'model/song_model.dart';
+import 'package:get/get.dart';
 
 class musicPage extends StatelessWidget {
+  final OnAudioQuery _audioQuery = OnAudioQuery();
 
   @override
   Widget build(BuildContext context) {
     List<Song> songs = Song.songs;
     List<Playlist> playlists = Playlist.playlists;
+
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -31,6 +39,7 @@ class musicPage extends StatelessWidget {
               const _DiscoverMusic(),
               _TrendingMusic(songs: songs),
               _PlaylistMusic(playlists: playlists),
+              AllSongs(),
             ],
           ),
         ),
@@ -156,3 +165,122 @@ class _DiscoverMusic extends StatelessWidget {
     );
   }
 }
+
+class AllSongs extends StatefulWidget {
+  const AllSongs({Key? key}) : super(key: key);
+
+  @override
+  State<AllSongs> createState() => _AllSongsState();
+}
+
+class _AllSongsState extends State<AllSongs> {
+
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+
+  void initState(){
+    super.initState();
+    requestStoragePermission();
+  }
+
+  void requestStoragePermission() async {
+    if(!kIsWeb){
+      bool permissionStatus = await _audioQuery.permissionsStatus();
+      if(!permissionStatus){
+        await _audioQuery.permissionsRequest();
+      }
+      setState(() { });
+    }
+  }
+  //final _audioQuery = new OnAudioQuery();
+  final OnAudioQuery _audioQuery = OnAudioQuery();
+  List<SongModel> allSongs = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          const SectionHeader(title: "Downloaded Songs"),
+          FutureBuilder<List<SongModel>>(
+            future: _audioQuery.querySongs(
+              sortType: null,
+              ignoreCase: true,
+              uriType: UriType.EXTERNAL,
+              orderType: OrderType.ASC_OR_SMALLER,
+            ),
+            builder: (context, item){
+              if(item.data== null){
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if(item.data!.isEmpty){
+                return Text("No Songs Found");
+              }
+              return  ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: item.data!.length,
+                itemBuilder: (context, index){
+                    allSongs.addAll((item.data!));
+                  return GestureDetector(
+                    onTap: (){
+                      context
+                          .read<SongModelProvider>()
+                          .setId(item.data![index].id);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NowPlaying(
+                                  songModelList: [item.data![index]],
+                                  audioPlayer: _audioPlayer)));
+                    },
+                    child: Container(
+                    margin: const EdgeInsets.only(top: 15.0),
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+
+                      child:ListTile(
+                        textColor: Colors.black,
+                        title: Text(item.data![index].title),
+                        subtitle: Text(item.data![index].displayName,
+                          style: const TextStyle(
+                            color: Colors.black38,
+                          ),
+                        ),
+                        trailing: const Icon(Icons.more_vert),
+                        leading: QueryArtworkWidget(
+                          id: item.data![index].id,
+                          type: ArtworkType.AUDIO,
+
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NowPlaying(
+                                      songModelList: allSongs,
+                                      audioPlayer: _audioPlayer)));
+                        },
+                      ),
+                    ),
+                  );
+
+                }
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+  void toast(BuildContext context, String text){
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(text),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
+    ));
+  }
+}
+

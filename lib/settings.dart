@@ -9,7 +9,7 @@ import 'model/user.dart';
 
 class settingsPage extends StatelessWidget {
 
-  final user = UserPreferences.getUser();
+
   static final String path = "lib/settings.dart";
   final TextStyle whiteText = TextStyle(
     color: Colors.black,
@@ -25,6 +25,7 @@ class settingsPage extends StatelessWidget {
   settingsPage({super.key});
   @override
   Widget build(BuildContext context) {
+    final user = UserPreferences.getUser();
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Theme(

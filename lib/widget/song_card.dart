@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../model/song_model.dart';
 
@@ -15,7 +16,7 @@ class SongCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-
+        Get.toNamed('/song', arguments: song);
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10),
@@ -44,25 +45,39 @@ class SongCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        song.title,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Expanded(
+
+                    child: Container(
+                      margin: EdgeInsets.only(left: 5),
+                      child: Column(
+
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                          Text(
+                            song.title,
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                          ),
+                          Text(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                            song.description,
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              color: Colors.green,
+                              fontSize: 12,
+                            ),
+                          )
+                        ],
                       ),
-                      Text(
-                        song.description,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Colors.green,
-                          fontSize: 12,
-                        ),
-                      )
-                    ],
+                    ),
                   ),
                   Icon(Icons.play_circle, color: Colors.green,),
                 ],

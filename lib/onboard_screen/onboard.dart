@@ -20,14 +20,14 @@ class _OnBoardState extends State<OnBoard> {
       desc:
       "We are trying to build a flutter music app for our Mobile Application Development Course",
       bg: Colors.white,
-      button: Color(0xFF4756DF),
+      button: Colors.green,
     ),
     OnboardModel(
       img: 'assets/images/img-2.png',
       text: "Turza Podder",
       desc:
       "ID: 011 191 239 I have created the Music player, Local files fetch and Home Page design",
-      bg: Color(0xFF4756DF),
+      bg: Colors.green,
       button: Colors.white,
     ),
     OnboardModel(
@@ -36,7 +36,7 @@ class _OnBoardState extends State<OnBoard> {
       desc:
       "ID: 011 191 259 I have designed the splash, onboarding screen & setting page functionality with shared preferences",
       bg: Colors.white,
-      button: Color(0xFF4756DF),
+      button: Colors.green,
     ),
   ];
 
@@ -101,7 +101,7 @@ class _OnBoardState extends State<OnBoard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(125.0),
+                      borderRadius: BorderRadius.circular(125.0),
                       child: Image.asset(screens[index].img, height: 250, width: 250, fit: BoxFit.cover,)),
                   SizedBox(
                     height: 10.0,

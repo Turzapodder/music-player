@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'model/playlist_model.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -63,25 +63,30 @@ class _PlaylistSongs extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: playlist.songs.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          leading: Text(
-            '${index + 1}',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          title: Text(
-            playlist.songs[index].title,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text('${playlist.songs[index].description} ⚬ 02:45'),
-          trailing: const Icon(
-            Icons.more_vert,
-            color: Colors.white,
+        return InkWell(
+          onTap: (){
+            Get.toNamed('/song', arguments: playlist.songs[index]);
+          },
+          child: ListTile(
+            leading: Text(
+              '${index + 1}',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            title: Text(
+              playlist.songs[index].title,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text('${playlist.songs[index].description} ⚬ 02:45'),
+            trailing: const Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
           ),
         );
       },
